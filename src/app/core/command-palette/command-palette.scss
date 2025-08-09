@@ -1,0 +1,23 @@
+::ng-deep .p-dialog-mask {
+  backdrop-filter: blur(4px);
+  background-color: rgba(from var(--p-primary-color) r g b / 10%)!important;
+}
+
+::ng-deep .p-dialog {
+  background-color: rgb(from var(--p-dialog-background) r g b / 60%)!important;
+}
+
+::ng-deep .p-inputtext {
+  background: transparent!important;
+}
+
+::ng-deep .p-dialog-content {
+  padding: 4px!important;
+  width: 40rem;
+  background-color: transparent;
+}
+
+::ng-deep .p-autocomplete-overlay {
+  margin-top: 8px;
+  background-color: rgba(from var(--p-autocomplete-overlay-background) r g b / 60%)!important;
+}

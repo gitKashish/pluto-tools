@@ -1,0 +1,24 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [closeOnEscape]="true"
+  [dismissableMask]="true"
+  [showHeader]="false"
+>
+  <p-autoComplete
+      [size]="'large'"
+      fluid
+      optionLabel="title"
+      placeholder="Type a command..."
+      autocomplete
+      showClear
+      autoOptionFocus
+      autofocus
+      [suggestions]="filteredCommands"
+      [appendTo]="'body'"
+      (completeMethod)="search($event)"
+      (onSelect)="executeCommand($event.value)"
+      [(ngModel)]="query"
+  >
+  </p-autoComplete>
+</p-dialog>

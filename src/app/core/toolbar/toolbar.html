@@ -1,0 +1,28 @@
+<div class="main-container">
+    <p-toolbar class="toolbar">
+        <ng-template #start>{{ toolName() }}</ng-template>
+        <ng-template #center>
+            @for (action of actions(); track $index) {
+            <p-button 
+                [icon]="action.icon"
+                iconPos="right"
+                [label]="action.title"
+                (click)="action.handler()"
+                [ariaLabel]="action.title"
+                severity="contrast"
+                rounded
+                >
+            </p-button>
+            }
+        </ng-template>
+        <ng-template #end>
+            <p-button
+                icon="pi pi-bolt" 
+                severity="primary"
+                outlined
+                rounded
+                (click)="cmdPalette.open()" 
+            />
+        </ng-template>
+    </p-toolbar>
+</div>

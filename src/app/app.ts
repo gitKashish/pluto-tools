@@ -1,38 +1,39 @@
-import { Component, inject, OnInit, viewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, viewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { CommandPalette, CommandPaletteService, CommandItem } from './core/command-palette';
+import { CommandPalette, CommandPaletteService, CommandItem } from '@app/core/command-palette';
+import { Toolbar, ToolbarService } from "@app/core/toolbar";
 
 const getCommands = (router: Router): CommandItem[] => {
   return [
     {
       id: 'home',
-      title: 'home',
+      title: 'Home',
       keywords: ['home', 'root'],
-      action: (): void => {
+      handler: (): void => {
         router.navigate(['/']);
       }
     },
     {
       id: 'json-formatter',
-      title: 'json formatter',
+      title: 'JSON Formatter',
       keywords: ['json', 'formatter', 'beautify', 'format'],
-      action: (): void => {
+      handler: (): void => {
         router.navigate(['/json/formatter']);
       }
     },
     {
       id: 'json-diff',
-      title: 'json diff',
+      title: 'JSON Diff',
       keywords: ['json', 'diff', 'compare', 'difference'],
-      action: (): void => {
+      handler: (): void => {
         router.navigate(['/json/diff']);
       }
     },
     {
       id: 'app-theme',
-      title: 'toggle dark mode',
+      title: 'Toggle Dark Mode',
       keywords: ['dark', 'light', 'theme', 'mode', 'color'],
-      action: (): void => {
+      handler: (): void => {
         const element = document.querySelector('html');
         element?.classList.toggle('app-dark');
       }
@@ -42,20 +43,24 @@ const getCommands = (router: Router): CommandItem[] => {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommandPalette],
+  imports: [RouterOutlet, CommandPalette, Toolbar],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App implements OnInit {
+export class App implements AfterViewInit {
   // dependencies
   router = inject(Router);
-  cmdPaletteService = inject(CommandPaletteService)
+  cmdPaletteService = inject(CommandPaletteService);
+  toolbarService = inject(ToolbarService);
 
   // component refs
   cmdPalette = viewChild.required(CommandPalette);
+  toolbar = viewChild.required(Toolbar);
+
   commands = getCommands(this.router);
   
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.cmdPaletteService.registerCommandPalette(this.cmdPalette, this.commands);
+    this.toolbarService.registerToolbar(this.toolbar);
   }
 }

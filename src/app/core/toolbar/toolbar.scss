@@ -1,0 +1,16 @@
+::ng-deep .main-container {
+    position: fixed;
+    width: 100%;
+    padding: 8px;
+    bottom: 0px;
+    .toolbar.p-toolbar {
+      background-color: rgba(from var(--p-toolbar-backdround) r g b / 0.2);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      color: var(--p-text-color-primary);
+      background-image: none !important;
+      padding-inline: 1.5rem;
+    }
+}
+

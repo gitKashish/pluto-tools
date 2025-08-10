@@ -4,11 +4,11 @@ import { Dialog } from 'primeng/dialog';
 import { AutoComplete, AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 
-export interface CommandItem {
+export interface CommandItem{
   id: string,
   title: string,
   keywords: string[],
-  action: () => void,
+  handler: () => void,
 }
 
 @Component({
@@ -54,7 +54,7 @@ export class CommandPalette {
   }
 
   executeCommand(cmd: CommandItem) {
-    cmd.action();
+    cmd.handler();
     this.query.set('');
     this.close();
   }

@@ -30,9 +30,10 @@ export class CommandPalette {
   get isVisibile() {
     return this.visible();
   }
-
+  
   close() {
     this.visible.set(false);
+    this.clearState();
   }
 
   open(commands: CommandItem[]) {
@@ -52,10 +53,11 @@ export class CommandPalette {
 
   protected executeCommand(cmd: CommandItem) {
     cmd.handler();
+    this.clearState();
     this.close();
   }
 
-  protected onDialogClose() {
+  private clearState() {
     this.query.set('');
     this.filteredCommands = [];
   }

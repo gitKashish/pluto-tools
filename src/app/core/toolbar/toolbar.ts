@@ -31,7 +31,7 @@ export class Toolbar {
   @HostListener('document:keydown',['$event'])
   handleKeyDown(event: KeyboardEvent) {
     if (event.altKey && event.key.toLowerCase() == 'k') {
-      this.toolbarService.openCmdPalette();
+      this.toolbarService.toggleCmdPalette();
     }
   }
 }

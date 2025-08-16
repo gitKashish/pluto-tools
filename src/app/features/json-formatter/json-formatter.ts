@@ -8,7 +8,7 @@ import { ToolbarService, ToolbarState } from '@app/core/toolbar';
 
 @Component({
   selector: 'app-json-formatter',
-  imports: [Textarea, FormsModule, IftaLabel, Button],
+  imports: [Textarea, FormsModule, IftaLabel],
   templateUrl: './json-formatter.html',
   styleUrl: './json-formatter.scss'
 })
@@ -18,10 +18,9 @@ export class JsonFormatter implements OnInit, OnDestroy {
   // actions
   toolbarState: ToolbarState = {
     toolName: 'JSON Formatter',
-    actions: [
+    commands: [
       {
         id: 'json-formatter-format',
-        icon: 'pi pi-align-left',
         title: 'Format Raw JSON',
         keywords: ['format', 'run', 'pretty'],
         handler() {

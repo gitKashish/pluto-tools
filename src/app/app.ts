@@ -1,7 +1,40 @@
-import { AfterViewInit, Component, inject, OnInit, viewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, viewChild, HostListener } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CommandPalette, CommandPaletteService, CommandItem } from '@app/core/command-palette';
 import { Toolbar, ToolbarService } from "@app/core/toolbar";
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, CommandPalette, Toolbar],
+  templateUrl: './app.html',
+  styleUrl: './app.scss'
+})
+export class App implements AfterViewInit {
+  // dependencies
+  router = inject(Router);
+  cmdPaletteService = inject(CommandPaletteService);
+  toolbarService = inject(ToolbarService);
+
+  // component refs
+  cmdPalette = viewChild.required(CommandPalette);
+  toolbar = viewChild.required(Toolbar);
+
+  commands = getCommands(this.router);
+  
+  ngAfterViewInit(): void {
+    this.cmdPaletteService.registerCommandPalette(this.cmdPalette, this.commands);
+    this.toolbarService.registerToolbar(this.toolbar);
+  }
+
+  // event listeners
+  @HostListener('document:keydown', ['$event'])
+  handleShortcut(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key.toLowerCase() == 'k') {
+      event.preventDefault();
+      this.cmdPaletteService.toggle();
+    }
+  }
+}
 
 const getCommands = (router: Router): CommandItem[] => {
   return [
@@ -39,28 +72,4 @@ const getCommands = (router: Router): CommandItem[] => {
       }
     }
   ];
-}
-
-@Component({
-  selector: 'app-root',
-  imports: [RouterOutlet, CommandPalette, Toolbar],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
-})
-export class App implements AfterViewInit {
-  // dependencies
-  router = inject(Router);
-  cmdPaletteService = inject(CommandPaletteService);
-  toolbarService = inject(ToolbarService);
-
-  // component refs
-  cmdPalette = viewChild.required(CommandPalette);
-  toolbar = viewChild.required(Toolbar);
-
-  commands = getCommands(this.router);
-  
-  ngAfterViewInit(): void {
-    this.cmdPaletteService.registerCommandPalette(this.cmdPalette, this.commands);
-    this.toolbarService.registerToolbar(this.toolbar);
-  }
 }

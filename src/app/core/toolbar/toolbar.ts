@@ -18,7 +18,7 @@ export class Toolbar {
   // states
   private _state = signal(this.toolbarService.defaultState);
   protected toolName = computed( () => this._state().toolName );
-  protected actions = computed( () => this._state().actions );
+  protected commands = computed( () => this._state().commands );
 
   get state(): Signal<ToolbarState> {
     return this._state.asReadonly();
@@ -31,7 +31,7 @@ export class Toolbar {
   @HostListener('document:keydown',['$event'])
   handleKeyDown(event: KeyboardEvent) {
     if (event.altKey && event.key.toLowerCase() == 'k') {
-      this.toolbarService.openCmdPalette(this.actions());
+      this.toolbarService.openCmdPalette();
     }
   }
 }

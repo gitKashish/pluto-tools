@@ -1,4 +1,4 @@
-import { Component, HostListener, signal, input, computed } from '@angular/core';
+import { Component, HostListener, signal, Signal } from '@angular/core';
 
 import { Dialog } from 'primeng/dialog';
 import { AutoComplete, AutoCompleteCompleteEvent } from 'primeng/autocomplete';
@@ -19,52 +19,40 @@ export interface CommandItem{
 })
 export class CommandPalette {
   // inputs
-  private commands = signal<CommandItem[]>([]);
+  private commands: CommandItem[] = [];
 
   // states
-  filteredCommands: CommandItem[] = [];
-  query = signal('');
-  visible = signal(false);
+  protected filteredCommands: CommandItem[] = [];
+  protected query = signal('');
+  protected visible = signal(false);
 
-  // command palette actions
-  registerCommands(commands: CommandItem[]) {
-    this.commands.set(commands);
+  // setters and getters
+  get isVisibile() {
+    return this.visible();
   }
 
   close() {
     this.visible.set(false);
   }
 
-  open() {
+  open(commands: CommandItem[]) {
     this.visible.set(true);
+    this.commands = commands;
   }
 
-  toggle() {
-    this.visible.update( visible => !visible );
-  }
-
-  search(event: AutoCompleteCompleteEvent) {
+  protected search(event: AutoCompleteCompleteEvent) {
     const query = event.query.toLowerCase();
     
-    this.filteredCommands = this.commands().filter( (cmd) => {
+    this.filteredCommands = this.commands.filter( (cmd) => {
       const titleInQuery = cmd.title.toLowerCase().includes(query);
       const keywordInQuery = cmd.keywords.some(k => k.toLowerCase().includes(query));
       return titleInQuery || keywordInQuery;
     })
   }
 
-  executeCommand(cmd: CommandItem) {
+  protected executeCommand(cmd: CommandItem) {
     cmd.handler();
     this.query.set('');
     this.close();
-  }
-
-  // event listeners
-  @HostListener('document:keydown', ['$event'])
-  handleShortcut(event: KeyboardEvent) {
-    if (event.ctrlKey && event.key.toLowerCase() == 'k') {
-      event.preventDefault();
-      this.toggle();
-    }
   }
 }

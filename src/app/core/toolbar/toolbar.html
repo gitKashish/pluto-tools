@@ -2,10 +2,8 @@
     <p-toolbar class="toolbar">
         <ng-template #start>{{ toolName() }}</ng-template>
         <ng-template #center>
-            @for (action of actions(); track $index) {
+            @for (action of commands(); track $index) {
             <p-button 
-                [icon]="action.icon"
-                iconPos="right"
                 [label]="action.title"
                 (click)="action.handler()"
                 [ariaLabel]="action.title"

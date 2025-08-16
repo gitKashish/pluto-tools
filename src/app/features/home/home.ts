@@ -17,10 +17,9 @@ export class Home implements OnInit, OnDestroy {
 
   toolbarState: ToolbarState = {
       toolName: 'Home',
-      actions: [
+      commands: [
         {
           id: 'home-help',
-          icon: 'pi pi-lightbulb',
           title: 'Help',
           keywords: ['shortcut', 'help', 'commands'],
           handler() {

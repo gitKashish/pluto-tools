@@ -1,50 +1,52 @@
-import { Injectable, Signal, signal } from '@angular/core';
+import { inject, Injectable, Signal, signal } from '@angular/core';
 import { Toolbar } from './toolbar';
-import { CommandItem } from '../command-palette';
-
-export interface ToolbarAction extends CommandItem {
-  id: string;
-  title: string;
-  icon?: string;
-  keywords: string[];
-  handler: () => void;
-}
+import { CommandItem, CommandPaletteService } from '../command-palette';
 
 export interface ToolbarState {
   toolName: string;
-  actions: ToolbarAction[];
+  commands: CommandItem[];
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToolbarService {
-  private _toolbar!: Signal<Toolbar>;
+  // dependencies
+  private cmdPalette = inject(CommandPaletteService);
+  private toolbar!: Signal<Toolbar>;
 
   get defaultState(): ToolbarState {
-    return {
-      toolName: '',
-      actions: [],
-    };
+    return { toolName: '', commands: [] };
   }
 
   registerToolbar(toolbar: Signal<Toolbar>) {
-    this._toolbar = toolbar;
+    this.toolbar = toolbar;
+  }
+
+  // toolbar state management
+  set state(state: ToolbarState) {
+    this.toolbar().state = state;
+  }
+
+  get state(): ToolbarState {
+    return this.toolbar().state();
   }
 
   reset() {
     this.state = this.defaultState;
   }
 
-  set state(state: ToolbarState) {
-    this._toolbar().state = state;
+  // toolbar actions
+  openCmdPalette() {
+    this.cmdPalette.open(this.state.commands);
   }
 
-  get state() {
-    return this._toolbar().state();
+  closeCmdPalette() {
+    this.cmdPalette.close();
   }
 
-  openCmdPalette(actions: ToolbarAction[]) {
-    
+  toggleCmdPalette() {
+    this.cmdPalette.toggle(this.state.commands);
   }
+
 }

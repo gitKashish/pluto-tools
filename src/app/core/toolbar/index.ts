@@ -1,5 +1,5 @@
 import { Toolbar } from "./toolbar";
-import { ToolbarService, ToolbarAction, ToolbarState } from "./toolbar.service";
+import { ToolbarService, ToolbarState } from "./toolbar.service";
 
 export {
     Toolbar,
@@ -7,6 +7,5 @@ export {
 }
 
 export type {
-    ToolbarAction,
     ToolbarState,
 }

@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { Noir } from './app.theme';
 
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes), provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
+    MessageService,
     providePrimeNG({
       ripple: true,
       theme: {

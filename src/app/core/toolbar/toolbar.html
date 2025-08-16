@@ -7,7 +7,7 @@
                 [label]="action.title"
                 (click)="action.handler()"
                 [ariaLabel]="action.title"
-                severity="contrast"
+                severity="primary"
                 rounded
                 >
             </p-button>
@@ -16,7 +16,7 @@
         <ng-template #end>
             <p-button
                 icon="pi pi-bolt" 
-                severity="primary"
+                severity="secondary"
                 outlined
                 rounded
                 (click)="cmdPalette.open()" 

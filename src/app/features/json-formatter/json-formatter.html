@@ -1,16 +1,23 @@
-<div class="main-container">
-    <div class="text-container">
-        <p-ifta-label class="text-content">
-            <textarea pTextarea fluid id="raw_json" class="raw json-text">
-    
-            </textarea>
-            <label for="raw_json">Raw JSON</label >
-        </p-ifta-label>
-        <p-ifta-label class="text-content">
-            <textarea pTextarea fluid readonly id="pretty_json" class="pretty json-text">
-    
-            </textarea>
-            <label for="raw_json">Pretty JSON</label>
-        </p-ifta-label>
-    </div>
+<div class="main-container h-screen p-4">
+  <p-splitter class="h-full">
+    <!-- Raw JSON input -->
+    <ng-template #panel>
+      <div class="h-full p-3 flex flex-col">
+        <h3 class="mb-2 text-lg font-semibold">Raw JSON</h3>
+        <textarea
+          class="w-full flex-grow p-2 border rounded resize-none font-mono"
+          placeholder="Paste JSON here..."></textarea>
+      </div>
+    </ng-template>
+
+    <!-- Formatted JSON output -->
+    <ng-template #panel>
+      <div class="h-full p-3 flex flex-col">
+        <h3 class="mb-2 text-lg font-semibold">Formatted JSON</h3>
+        <pre class="w-full flex-grow p-2 border rounded overflow-auto font-mono">
+            This is some formatted JSON
+        </pre>
+      </div>
+    </ng-template>
+  </p-splitter>
 </div>

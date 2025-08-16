@@ -1,14 +1,14 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { Textarea } from 'primeng/textarea';
-import { IftaLabel } from 'primeng/iftalabel'
-import { Button } from "primeng/button";
+// UI components
+import { Splitter } from 'primeng/splitter';
+
 import { ToolbarService, ToolbarState } from '@app/core/toolbar';
 
 @Component({
   selector: 'app-json-formatter',
-  imports: [Textarea, FormsModule, IftaLabel],
+  imports: [Splitter, FormsModule],
   templateUrl: './json-formatter.html',
   styleUrl: './json-formatter.scss'
 })

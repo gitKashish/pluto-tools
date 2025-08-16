@@ -9,6 +9,9 @@
 
 ::ng-deep .p-inputtext {
   background: transparent!important;
+  &:enabled:focus {
+    border-color: var(--p-inputtext-border-color)!important;
+  }
 }
 
 ::ng-deep .p-dialog-content {

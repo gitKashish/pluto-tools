@@ -52,7 +52,11 @@ export class CommandPalette {
 
   protected executeCommand(cmd: CommandItem) {
     cmd.handler();
-    this.query.set('');
     this.close();
+  }
+
+  protected onDialogClose() {
+    this.query.set('');
+    this.filteredCommands = [];
   }
 }
